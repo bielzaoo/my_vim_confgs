@@ -1,2 +1,2 @@
-# my_init_vim
+# Meu init.vim
 Meu init.vim
