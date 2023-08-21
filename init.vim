@@ -145,6 +145,9 @@ nnoremap tp :!python %<cr>
 " Delete all contents of a file
 map da :1,$d
 
+" Terminal init
+map <F7> :FloatermNew<CR>
+
 
 
 " autocmd """"""""""
