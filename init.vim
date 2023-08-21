@@ -12,8 +12,8 @@ set incsearch        " Incremental search
 set ignorecase       " Ingore case in search
 set smartcase        " Consider case if there is a upper case character
 set scrolloff=8      " Minimum number of lines to keep above and below the cursor
-set colorcolumn=100  " Draws a line at the given line to keep aware of the line size
-set signcolumn=yes   " Add a column on the left. Useful for linting
+"set colorcolumn=100  " Draws a line at the given line to keep aware of the line size
+"set signcolumn=yes  " Add a column on the left. Useful for linting
 set cmdheight=2      " Give more space for displaying messages
 set updatetime=100   " Time in miliseconds to consider the changes
 set encoding=utf-8   " The encoding should be utf-8 to activate the font icons
@@ -46,6 +46,9 @@ if (has("nvim"))
     Plug 'nvim-telescope/telescope.nvim'
 Plug 'davidhalter/jedi-vim'
 endif
+Plug 'folke/tokyonight.nvim'
+Plug 'matze/vim-move'
+Plug 'voldikss/vim-floaterm'
 call plug#end()
 
 " Themes """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -60,12 +63,31 @@ let g:sonokai_enable_italic = 1
 let g:sonokai_disable_italic_comment = 0
 let g:sonokai_diagnostic_line_highlight = 1
 let g:sonokai_current_word = 'bold'
+"colorscheme tokyonight-night
 colorscheme sonokai
 
 if (has("nvim")) "Transparent background. Only for nvim
     highlight Normal guibg=NONE ctermbg=NONE
     highlight EndOfBuffer guibg=NONE ctermbg=NONE
 endif
+
+
+
+
+
+" C/C++ """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_c_clangformat_options = '"-style={
+\ BasedOnStyle: google,
+\ IndentWidth: 4,
+\ ColumnLimit: 100,
+\ AllowShortBlocksOnASingleLine: Always,
+\ AllowShortFunctionsOnASingleLine: Inline,
+\ FixNamespaceComments: true,
+\ ReflowComments: false,
+\ }"'
+
+
+" VIM - Move """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
@@ -143,11 +165,15 @@ autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
 " ALE """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ale_linters = {
 \   'python': ['flake8', 'pyright', 'bandit',],
+\   'cpp': [],
+\   'c': [],
 \}
 
 let g:ale_fixers = {
 \   '*': ['trim_whitespace'],
 \   'python': ['black', 'isort',],
+\   'cpp': ['clang-format'],
+\   'c': ['clang-format'],
 \}
 
 let g:ale_fix_on_save = 1
@@ -202,7 +228,7 @@ let g:coc_snippet_next = '<tab>'
 
 
 " COC """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:coc_global_extensions = [ 'coc-snippets', 'coc-explorer', 'coc-pairs', ]
+let g:coc_global_extensions = [ 'coc-snippets', 'coc-explorer', 'coc-pairs', 'coc-html', 'coc-css', 'coc-clangd' ]
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
 set encoding=utf-8
