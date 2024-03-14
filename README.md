@@ -11,7 +11,7 @@ Install:
 ## Python configs
 ### flake8 install
 `pip install flake8` or `pipx install flake8`
-### Pyroght install
+### Pyright install
 Install
 `npm install -g pyright`
 ### bandit install
