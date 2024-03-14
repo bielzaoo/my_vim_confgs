@@ -1,4 +1,4 @@
-# Meu init.vim
+# My vim configs
 
 ## Install
 `sudo apt install software-properties-common`
